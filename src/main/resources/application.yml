@@ -1,0 +1,13 @@
+
+
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    password: 123
+    username: postgres
+
+api:
+  security:
+    token:
+      secret: ${API_SECURITY_TOKEN_SECRET:kingsecret}
