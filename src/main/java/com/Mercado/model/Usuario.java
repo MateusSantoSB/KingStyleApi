@@ -32,7 +32,7 @@ public class Usuario implements UserDetails {
 	@Column(name="nome")
 	private String nome;
 	
-	@Column(name="login")
+	@Column(name="login_user")
 	private String login;
 	
 	@Column(name="senha")
@@ -40,6 +40,9 @@ public class Usuario implements UserDetails {
 	
 	@Column(name="role")
 	private ROLE role;
+	
+	@Column(name="email")
+	private String email;
 	
 	
 	public Usuario() {
@@ -97,9 +100,20 @@ public class Usuario implements UserDetails {
 	}
 
 
+	
+	public String getEmail() {
+		return email;
+	}
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, login, nome, role, senha);
+		return Objects.hash(email, id, login, nome, role, senha);
 	}
 
 
@@ -112,8 +126,8 @@ public class Usuario implements UserDetails {
 		if (getClass() != obj.getClass())
 			return false;
 		Usuario other = (Usuario) obj;
-		return Objects.equals(id, other.id) && Objects.equals(login, other.login) && Objects.equals(nome, other.nome)
-				&& Objects.equals(role, other.role) && Objects.equals(senha, other.senha);
+		return Objects.equals(email, other.email) && Objects.equals(id, other.id) && Objects.equals(login, other.login)
+				&& Objects.equals(nome, other.nome) && role == other.role && Objects.equals(senha, other.senha);
 	}
 
 

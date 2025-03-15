@@ -52,9 +52,10 @@ CREATE TABLE CARRINHO_PRODUTOS(
 CREATE TABLE USUARIO(
 	id UUID primary key NOT NULL,
 	nome varchar(55) NOT NULL,
-	login varchar(255) NOT NULL,
+	login_user varchar(255) NOT NULL,
 	senha varchar(255) NOT NULL,
-	role varchar(55) NOT NULL
+	role varchar(55) NOT NULL,
+	email varchar(255) NOT NULL
 	
 	
 	

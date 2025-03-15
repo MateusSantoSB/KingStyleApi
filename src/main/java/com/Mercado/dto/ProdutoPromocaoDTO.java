@@ -12,7 +12,9 @@ public record ProdutoPromocaoDTO(
 		
 		double valor,
 		
-		double valorPromocao
+		double valorPromocao,
+		
+		 int quantidadeEstoque
 		
 		
 		) {

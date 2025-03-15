@@ -35,7 +35,8 @@ public class JwtService {
 			Algorithm algorithm=Algorithm.HMAC256(secret);
 			String token=JWT.create()
 					.withIssuer(emissor)
-					.withSubject(usuario.getLogin())
+					.withSubject(usuario.getNome())
+					.withClaim("role", usuario.getRole().toString())
 					.withExpiresAt(this.gerarExpiredAt())
 					.sign(algorithm);
 			

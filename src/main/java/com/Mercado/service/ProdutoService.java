@@ -42,6 +42,47 @@ public class ProdutoService {
 		
 		return produto;
 	}
+	
+		public void atualizarproduto(UUID id,Produto prod) {
+			Optional<Produto> busca=repository.findById(id);
+			
+			if(busca.isPresent()) {	
+				Produto produto=busca.get();
+				
+				produto.setId(id);
+				produto.setNome(prod.getNome());
+				produto.setDescricao(prod.getDescricao());
+				produto.setCategoria(prod.getCategoria());
+				produto.setImagem(prod.getImagem());
+				produto.setImagem2(prod.getImagem());
+				produto.setImagem3(prod.getImagem3());
+				produto.setValor(prod.getValor());
+				produto.setPromocao(prod.getPromocao());
+				produto.setValorPromocao(prod.getValorPromocao());
+				produto.setQuantidade(prod.getQuantidade());
+				produto.setQuantidadeEstoque(prod.getQuantidadeEstoque());
+				produto.setTamanhos(prod.getTamanhos());
+				
+				repository.save(produto);
+				
+			}else {
+				throw new RuntimeException("Produto não encontrado!!");
+			}
+			
+			
+		}
+		
+		public void removerProduto(UUID id) {
+			Optional<Produto> busca=repository.findById(id);
+			
+			if(busca.isPresent()) {
+				Produto produto=busca.get();
+				repository.delete(produto);
+				
+			}else {
+				throw new RuntimeException("Produto de id:"+id+" não encontrado!!");			}
+			
+		}
 	 
 	
 	
@@ -50,6 +91,9 @@ public class ProdutoService {
 		org.springframework.data.domain.Page<Produto> produtos=repository.findAll(PageRequest.of(pagina, tamanho));
 		return produtos;
 	}
+	
+	
+	
 	
 	
 	

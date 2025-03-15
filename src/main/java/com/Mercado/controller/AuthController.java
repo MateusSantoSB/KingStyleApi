@@ -17,11 +17,14 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.Mercado.config.JwtService;
 import com.Mercado.dto.AuthDTO;
+import com.Mercado.dto.TokenDTO;
 import com.Mercado.dto.UsuarioDTO;
 import com.Mercado.mapper.UsuarioMapper;
 import com.Mercado.model.Usuario;
 import com.Mercado.service.AuthorizationService;
 import com.Mercado.service.UsuarioService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/auth")
@@ -49,7 +52,7 @@ public class AuthController {
 	
 	
 	@PostMapping("/login")
-	public ResponseEntity<String> login(@RequestBody AuthDTO dto ){
+	public ResponseEntity<TokenDTO> login(@RequestBody AuthDTO dto ){
 
 		
 		
@@ -57,8 +60,9 @@ public class AuthController {
 				var auth=authenticationManager.authenticate(login);
 				
 			    var token=jwtService.gerarToken((Usuario)auth.getPrincipal());
+			    TokenDTO tokenDto=new TokenDTO(token);
 			    
-				return ResponseEntity.ok(token);
+				return ResponseEntity.ok(tokenDto);
 
 			
 			
@@ -70,7 +74,7 @@ public class AuthController {
 	
 	
 	@PostMapping("/register")
-	public ResponseEntity<Void> salvar(@RequestBody UsuarioDTO dto){
+	public ResponseEntity<Void> salvar(@RequestBody @Valid UsuarioDTO dto){
 		Usuario usuario=mapper.toEntity(dto);
 		this.service.salvar(usuario);
 		

@@ -1,8 +1,13 @@
 package com.Mercado.service;
 
+import java.util.Optional;
+import java.util.UUID;
+
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.Mercado.model.ROLE;
 import com.Mercado.model.Usuario;
 import com.Mercado.model.repository.UsuarioRepository;
 
@@ -18,10 +23,19 @@ public class UsuarioService {
 	}
 
 	public void salvar(Usuario usuario) {
-		usuario.setSenha(encoder.encode(usuario.getSenha()));
-		this.repository.save(usuario);	
+		String login=usuario.getLogin();
+		Optional<Usuario> busca=repository.findLoginUser(login);
+		
+		if(busca.isEmpty()) {
+			usuario.setSenha(encoder.encode(usuario.getSenha()));
+			usuario.setRole(ROLE.USER);
+			this.repository.save(usuario);	
+		}else {
+			throw new RuntimeException("Login ja cadastrado");
+		}
+		
+		
 	}
-	
 
 	
 	

@@ -42,7 +42,6 @@ public record ProdutoSaveDTO(
 		List<String> tamanhos,
 		
 		@NotNull(message="O campo Quantidade Estoque não pode ser nulo")
-		@Size(min=0, message="O estoque e muito grande")
 		int quantidadeEstoque
 		
 		) {
